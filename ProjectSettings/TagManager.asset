@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - CameraL
+  - CameraR
+  - Camera2D
+  - Grabbable
+  - PlayerHand
+  - OpenXRFrameSquare
+  - Explodistick
+  - Enemy
+  - Loot
+  - PlayerHead
+  - MockHMD
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - NoCamRender
+  - NoMirrorRender
+  - OpenXRFrameRender
+  - Treasure
+  - LaserBlocker
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Lasers
+    uniqueID: 113052219
+    locked: 0
