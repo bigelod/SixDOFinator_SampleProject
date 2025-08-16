@@ -9,6 +9,7 @@ If MIT license doesn't suit your needs, and you can use code under "The Unlicens
 # Special Thanks
 
 Thanks to Luboš for WinlatorXR and testing/debug help!
+
 Thanks to GmoLargey for testing!
 
 # Get WinlatorXR for your Quest or Pico device
