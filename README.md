@@ -21,9 +21,13 @@ This project is designed to run within a Windows (Wine) container on WinlatorXR,
 # How to build (and run):
 
 Download the source code
+
 Install TMP Pro package from Unity editor
+
 Install the free packages (see Assets/AssetPacks/Readme.txt)
+
 Build and run in WinlatorXR on your Meta Quest or Pico device
+
 
 WinlatorXR sends the XR data via UDP port 7872 to the container
 
