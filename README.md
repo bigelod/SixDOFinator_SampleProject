@@ -6,6 +6,10 @@ For the barebones version of this project which requires no external assets and 
 
 If MIT license doesn't suit your needs, and you can use code under "The Unlicense" to your benefit instead, please feel free to consider this sample project as licensed under "The Unlicense" or Public Domain, I would love to see more PCVR on standalone in future!
 
+# Get WinlatorXR for your Quest or Pico device
+
+This project is designed to run within a Windows (Wine) container on WinlatorXR, go check that out [here](https://github.com/lvonasek/WinlatorXR)
+
 # Unity Editor Version: 
 2022.3.62f1 (LTS)
 
