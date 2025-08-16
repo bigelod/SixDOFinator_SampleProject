@@ -35,3 +35,30 @@ HMD X Position, HMD Y position, HMD Z Position, Current IPD, Current FOV Horizon
 XR Frame ID
 
 The last is an INT between 0 and 255, the rest are float/double values
+
+# Asset credits:
+
+> TMP (Text Mesh Pro) built-in to Unity
+> Bombs and Explosions by Cyberwave Orchestra
+> Sci-FI Glitch Pack by E.V.I.L Studios
+> Sci-FiPistol01 by Game Stuff Studio
+> ShootingSound by B.G.M
+> Simple FX Kit by Indian Ocean Assets
+> Sound Pack Free Edition by University of Games
+
+# Poly.Pizza Assets:
+
+> Fishing Rod by Quaternius (https://poly.pizza/m/skqPvEIpve)
+> Chest Gold by Quaternius (https://poly.pizza/m/4jqKCGHpUO)
+> Gold Bag by Quaternius (https://poly.pizza/m/vFFblhnHtb)
+> Gem Green by Quaternius (https://poly.pizza/m/kbgiCMzdxg)
+> Robot Enemy Large by Quaternius (https://poly.pizza/m/mPDR0L5uKx)
+> Robot Enemy Flying by Quaternius (https://poly.pizza/m/lF3jeRJwiH)
+> Robot Enemy by Quaternius (https://poly.pizza/m/1gNo5ezvmr)
+
+# FreeSound Assets:
+
+> Joy.wav by Seth_Makes_Sounds -- https://freesound.org/s/685124/ -- License: Creative Commons 0
+> Brick Drop on Grass 1.wav by dichardson -- https://freesound.org/s/570966/ -- License: Creative Commons 0
+> Techno loop by TheNikonProductions -- https://freesound.org/s/361890/ -- License: Creative Commons 0
+> Binaural Birds LOOP 2.wav by maarten91 -- https://freesound.org/s/468448/ -- License: Creative Commons 0
