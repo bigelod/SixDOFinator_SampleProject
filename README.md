@@ -47,6 +47,10 @@ XR Frame ID
 
 The last is an INT between 0 and 255, the rest are float/double values
 
+# WinlatorXR XrApi
+
+The documentation of the XrApi can be found [here](https://github.com/lvonasek/WinlatorXR/releases/tag/winlatorxr_cmod_v13_11)
+
 # Asset credits:
 
 > TMP (Text Mesh Pro) built-in to Unity
