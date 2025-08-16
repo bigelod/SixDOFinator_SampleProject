@@ -97,3 +97,10 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+/Assets/AssetPacks/ExplosionsUAS
+/Assets/AssetPacks/Sci-FI Glitch Pack
+/Assets/AssetPacks/Sci-FiPistol01
+/Assets/AssetPacks/ShootingSound
+/Assets/AssetPacks/Simple FX Kit
+/Assets/AssetPacks/Sound Pack Free Edition
+/Assets/TextMesh Pro
