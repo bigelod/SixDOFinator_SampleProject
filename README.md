@@ -52,6 +52,13 @@ XR Frame ID
 
 The last is an INT between 0 and 255, the rest are float/double values
 
+Note: Since this was created, new data has been added by the WinlatorXR developer, these values come in at the end of the above string:
+
+L_GRIP, L_MENU, L_THUMBSTICK_PRESS, L_THUMBSTICK_LEFT, L_THUMBSTICK_RIGHT, L_THUMBSTICK_UP, L_THUMBSTICK_DOWN, L_TRIGGER, L_X, L_Y,
+R_A, R_B, R_GRIP, R_THUMBSTICK_PRESS, R_THUMBSTICK_LEFT, R_THUMBSTICK_RIGHT, R_THUMBSTICK_UP, R_THUMBSTICK_DOWN, R_TRIGGER
+
+These values come as either T for TRUE or F for FALSE
+
 # WinlatorXR XrApi
 
 The documentation of the XrApi can be found [here](https://github.com/lvonasek/WinlatorXR/releases/tag/winlatorxr_cmod_v13_11)
