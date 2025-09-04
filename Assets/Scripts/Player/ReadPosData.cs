@@ -80,6 +80,26 @@ public class ReadPosData : MonoBehaviour
     private float currFOVV = 96f;
     private int currFrameID = 0;
 
+    private bool btnLGrip = false;
+    private bool btnLMenu = false;
+    private bool btnLThumbClick = false;
+    private bool btnLThumbLeft = false;
+    private bool btnLThumbRight = false;
+    private bool btnLThumbUp = false;
+    private bool btnLThumbDown = false;
+    private bool btnLTrigger = false;
+    private bool btnX = false;
+    private bool btnY = false;
+    private bool btnA = false;
+    private bool btnB = false;
+    private bool btnRGrip = false;
+    private bool btnRThumbClick = false;
+    private bool btnRThumbLeft = false;
+    private bool btnRThumbRight = false;
+    private bool btnRThumbUp = false;
+    private bool btnRThumbDown = false;
+    private bool btnRTrigger = false;
+
     private bool firstStereoCheck = true;
     private bool lastStereoStatus = false;
 
@@ -89,6 +109,9 @@ public class ReadPosData : MonoBehaviour
 
     [SerializeField]
     private bool skipFrameWaitDebug = false;
+
+    [SerializeField]
+    private bool debugLogButtonInputs = false;
 
     private bool leavingLevel = false;
 
@@ -113,9 +136,21 @@ public class ReadPosData : MonoBehaviour
 
         if (m_DataDirectory == "Z:/tmp/xr" && !Directory.Exists(m_DataDirectory))
         {
-            skipFrameWaitDebug = true;
+            if (Directory.Exists("Z:/"))
+            {
+                //Try to create the temp directory if it doesn't exist
+                if (!Directory.Exists("Z:/tmp"))
+                {
+                    Directory.CreateDirectory("Z:/tmp");
+                }
+            }
+            else
+            {
+                //Fallback to a temp directory on whatever drive we are running on instead
+                skipFrameWaitDebug = true;
 
-            m_DataDirectory = Path.GetFullPath("./").Substring(0,1) + ":/xrtemp";
+                m_DataDirectory = Path.GetFullPath("./").Substring(0, 1) + ":/xrtemp";
+            }
         }
 
         if (!Directory.Exists(m_DataDirectory)) Directory.CreateDirectory(m_DataDirectory);
@@ -254,6 +289,36 @@ public class ReadPosData : MonoBehaviour
                 openXRFrameMatFlat.color = new Color32((byte)currFrameID, 0, 0, 1);
             }
         }
+
+        if (debugLogButtonInputs)
+        {
+            string btnsDown = "";
+
+            if (btnLGrip) btnsDown += "L GRIP ";
+            if (btnLMenu) btnsDown += "L MENU ";
+            if (btnLThumbClick) btnsDown += "L THUMBCLICK ";
+            if (btnLThumbLeft) btnsDown += "L THUMBLEFT ";
+            if (btnLThumbRight) btnsDown += "L THUMBRIGHT ";
+            if (btnLThumbUp) btnsDown += "L THUMBUP ";
+            if (btnLThumbDown) btnsDown += "L THUMBDOWN ";
+            if (btnLTrigger) btnsDown += "L TRIGGER ";
+            if (btnX) btnsDown += "X ";
+            if (btnY) btnsDown += "Y ";
+            if (btnA) btnsDown += "A ";
+            if (btnB) btnsDown += "B ";
+            if (btnRGrip) btnsDown += "R GRIP ";
+            if (btnRThumbClick) btnsDown += "R THUMBCLICK ";
+            if (btnRThumbLeft) btnsDown += "R THUMBLEFT ";
+            if (btnRThumbRight) btnsDown += "R THUMBRIGHT ";
+            if (btnRThumbUp) btnsDown += "R THUMBUP ";
+            if (btnRThumbDown) btnsDown += "R THUMBDOWN ";
+            if (btnRTrigger) btnsDown += "R TRIGGER ";
+
+            if (btnsDown != "")
+            {
+                Debug.Log("Buttons Down: " + btnsDown);
+            }
+        }
     }
 
     private void UpdateValue(ref float currValue, float newValue)
@@ -282,6 +347,16 @@ public class ReadPosData : MonoBehaviour
         int.TryParse(str, out ans);
 
         return ans;
+    }
+
+    private bool ParseBtnBool(string boolstring, int index)
+    {
+        if (boolstring.Length > index && boolstring.ToUpper().Substring(index, 1) == "T")
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void SetDataDir(string dataDirectory)
@@ -322,6 +397,8 @@ public class ReadPosData : MonoBehaviour
                 {
                     //Not the /sbs or /vr files
                     string[] parts = Path.GetFileName(file).Split(' ');
+
+                    string btnbools = "";
 
                     if (parts[0] == "client0")
                     {
@@ -385,6 +462,31 @@ public class ReadPosData : MonoBehaviour
                         if (maxParts >= i) UpdateValue(ref currFOVV, TryParseStr(parts[i]));
                         i++;
                         if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
+                        i++;
+                        if (maxParts >= i) btnbools = parts[i];
+                    }
+
+                    if (btnbools != "")
+                    {
+                        btnLGrip = ParseBtnBool(btnbools, 0);
+                        btnLMenu = ParseBtnBool(btnbools, 1);
+                        btnLThumbClick = ParseBtnBool(btnbools, 2);
+                        btnLThumbLeft = ParseBtnBool(btnbools, 3);
+                        btnLThumbRight = ParseBtnBool(btnbools, 4);
+                        btnLThumbUp = ParseBtnBool(btnbools, 5);
+                        btnLThumbDown = ParseBtnBool(btnbools, 6);
+                        btnLTrigger = ParseBtnBool(btnbools, 7);
+                        btnX = ParseBtnBool(btnbools, 8);
+                        btnY = ParseBtnBool(btnbools, 9);
+                        btnA = ParseBtnBool(btnbools, 10);
+                        btnB = ParseBtnBool(btnbools, 11);
+                        btnRGrip = ParseBtnBool(btnbools, 12);
+                        btnRThumbClick = ParseBtnBool(btnbools, 13);
+                        btnRThumbLeft = ParseBtnBool(btnbools, 14);
+                        btnRThumbRight = ParseBtnBool(btnbools, 15);
+                        btnRThumbUp = ParseBtnBool(btnbools, 16);
+                        btnRThumbDown = ParseBtnBool(btnbools, 17);
+                        btnRTrigger = ParseBtnBool(btnbools, 18);
                     }
                 }
             }
@@ -414,6 +516,8 @@ public class ReadPosData : MonoBehaviour
         if (!lockFrameData)
         {
             string[] parts = data.Split(' ');
+
+            string btnbools = "";
 
             int i = 1;
             int maxParts = parts.Length - 1;
@@ -475,6 +579,31 @@ public class ReadPosData : MonoBehaviour
             if (maxParts >= i) UpdateValue(ref currFOVV, TryParseStr(parts[i]));
             i++;
             if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
+            i++;
+            if (maxParts >= i) btnbools = parts[i];
+
+            if (btnbools != "")
+            {
+                btnLGrip = ParseBtnBool(btnbools, 0);
+                btnLMenu = ParseBtnBool(btnbools, 1);
+                btnLThumbClick = ParseBtnBool(btnbools, 2);
+                btnLThumbLeft = ParseBtnBool(btnbools, 3);
+                btnLThumbRight = ParseBtnBool(btnbools, 4);
+                btnLThumbUp = ParseBtnBool(btnbools, 5);
+                btnLThumbDown = ParseBtnBool(btnbools, 6);
+                btnLTrigger = ParseBtnBool(btnbools, 7);
+                btnX = ParseBtnBool(btnbools, 8);
+                btnY = ParseBtnBool(btnbools, 9);
+                btnA = ParseBtnBool(btnbools, 10);
+                btnB = ParseBtnBool(btnbools, 11);
+                btnRGrip = ParseBtnBool(btnbools, 12);
+                btnRThumbClick = ParseBtnBool(btnbools, 13);
+                btnRThumbLeft = ParseBtnBool(btnbools, 14);
+                btnRThumbRight = ParseBtnBool(btnbools, 15);
+                btnRThumbUp = ParseBtnBool(btnbools, 16);
+                btnRThumbDown = ParseBtnBool(btnbools, 17);
+                btnRTrigger = ParseBtnBool(btnbools, 18);
+            }
         }
     }
 
