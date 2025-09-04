@@ -34,7 +34,7 @@ WinlatorXR sends the XR data via UDP port 7872 to the container
 
 # UDP data example string:
 
-client0 0.080 -0.675 -0.728 -0.090 0.0 0.0 -0.210 -0.212 -0.359 -0.032 -0.609 0.790 -0.063 0.0 0.0 0.174 -0.202 -0.139 -0.036 -0.020 0.007 0.999 0.030 0.003 0.059 0.0681 99.00 103.40 255
+client0 0.213 0.287 -0.933 0.035 0.0 0.0 -0.008 -0.229 -0.173 0.095 -0.296 0.947 -0.077 0.0 0.0 0.154 -0.240 -0.140 0.146 -0.072 0.048 0.985 0.037 0.006 -0.017 0.0678 99.00 103.40 224 TFFFFFFFFFTTTFFFFFT
 
 If this isn't running inside WinlatorXR, it will create a folder on whatever drive it runs eg: D:/xrtemp
 
