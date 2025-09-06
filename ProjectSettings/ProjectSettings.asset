@@ -141,7 +141,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.1
+  bundleVersion: 1.11
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,7 +165,7 @@ PlayerSettings:
   applicationIdentifier:
     Standalone: com.DEBSoft.SixDOFinator
   buildNumber:
-    Standalone: 5
+    Standalone: 6
     VisionOS: 0
     iPhone: 0
     tvOS: 0

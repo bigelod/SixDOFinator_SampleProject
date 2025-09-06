@@ -113,11 +113,24 @@ public class ReadPosData : MonoBehaviour
     [SerializeField]
     private bool debugLogButtonInputs = false;
 
+    [SerializeField]
+    private List<HMDSpecificAdjustment> HMDAdjusts = new List<HMDSpecificAdjustment>();
+    public string currentHMD = "META";
+
     private bool leavingLevel = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (HMDAdjusts.Count <= 0)
+        {
+            //Default HMD adjustments
+            //HMDAdjusts.Add(new HMDSpecificAdjustment("META")); //We don't actually need one for META as it is the default
+            HMDSpecificAdjustment picoHMD = new HMDSpecificAdjustment("PICO");
+            picoHMD.FlipHandZRot = true;
+            HMDAdjusts.Add(picoHMD);
+        }
+
         Cursor.visible = false;
 
         if (m_MoveScript == null)
@@ -244,6 +257,62 @@ public class ReadPosData : MonoBehaviour
                 Quaternion handRRot = new Quaternion(currRHandQX, currRHandQY, currRHandQZ, currRHandQW);
                 //m_PlayerHandR.transform.localRotation = handRRot;
                 m_PlayerHandR.localEulerAngles = new Vector3(360f - handRRot.eulerAngles.x, 360f - handRRot.eulerAngles.y, handRRot.eulerAngles.z + 180f);
+            }
+
+            if (currentHMD.ToUpper() != "META" && HMDAdjusts.Count > 0)
+            {
+                foreach (HMDSpecificAdjustment hmd in HMDAdjusts)
+                {
+                    if (hmd.HMDName.ToUpper() == currentHMD.ToUpper())
+                    {
+                        if (hmd.FlipHandXRot)
+                        {
+                            if (m_PlayerHandL != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                            }
+
+                            if (m_PlayerHandR != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                            }
+                        }
+
+                        if (hmd.FlipHandYRot)
+                        {
+                            if (m_PlayerHandL != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
+                            }
+
+                            if (m_PlayerHandR != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
+                            }
+                        }
+
+                        if (hmd.FlipHandZRot)
+                        {
+                            if (m_PlayerHandL != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
+                            }
+
+                            if (m_PlayerHandR != null)
+                            {
+                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
+                            }
+                        }
+
+                        break;
+                    }
+                }
             }
 
             if (m_MoveScript != null)
@@ -464,6 +533,8 @@ public class ReadPosData : MonoBehaviour
                         if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
                         i++;
                         if (maxParts >= i) btnbools = parts[i];
+                        i++;
+                        if (maxParts >= i) currentHMD = parts[i];
                     }
 
                     if (btnbools != "")
@@ -581,6 +652,8 @@ public class ReadPosData : MonoBehaviour
             if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
             i++;
             if (maxParts >= i) btnbools = parts[i];
+            i++;
+            if (maxParts >= i) currentHMD = parts[i];
 
             if (btnbools != "")
             {
@@ -615,5 +688,19 @@ public class ReadPosData : MonoBehaviour
     public bool LeavingLevel()
     {
         return leavingLevel;
+    }
+}
+
+[System.Serializable]
+public class HMDSpecificAdjustment
+{
+    public string HMDName = "";
+    public bool FlipHandXRot = false;
+    public bool FlipHandYRot = false;
+    public bool FlipHandZRot = false;
+
+    public HMDSpecificAdjustment(string name = "HMD")
+    {
+        HMDName = name;
     }
 }
