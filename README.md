@@ -59,6 +59,8 @@ R_A, R_B, R_GRIP, R_THUMBSTICK_PRESS, R_THUMBSTICK_LEFT, R_THUMBSTICK_RIGHT, R_T
 
 These values come as either T for TRUE or F for FALSE
 
+Newer versions of WinlatorXR also provide the HMD sending the data, eg: PICO or META, so that some specific offsets can be applied if needed
+
 # WinlatorXR XrApi
 
 The documentation of the XrApi can be found [here](https://github.com/lvonasek/WinlatorXR/releases/tag/winlatorxr_cmod_v13_11)
