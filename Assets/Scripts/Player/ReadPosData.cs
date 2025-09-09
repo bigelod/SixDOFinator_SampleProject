@@ -404,7 +404,7 @@ public class ReadPosData : MonoBehaviour
     {
         float ans = 0f;
 
-        float.TryParse(str, out ans);
+        float.TryParse(str, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out ans);
 
         return ans;
     }
