@@ -25,17 +25,9 @@ public class SendUDPData : MonoBehaviour
 
     public void SendHapticVibration(float lControllerVibration, float rControllerVibration)
     {
-        if (lControllerVibration < 0 || rControllerVibration < 0)
-        {
-            //Send nothing if data is invalid
-            SendData("0.0 0.0");
-        }
-        else
-        {
-            string vibeData = lControllerVibration.ToString("0.0") + " " + rControllerVibration.ToString("0.0");
+        string vibeData = lControllerVibration.ToString("0.00") + " " + rControllerVibration.ToString("0.00");
 
-            SendData(vibeData);
-        }
+        SendData(vibeData);
     }
 
     public void SendData(string data)

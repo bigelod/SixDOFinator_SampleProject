@@ -406,8 +406,8 @@ public class ReadPosData : MonoBehaviour
         {
             UDPSender.SendHapticVibration(LControllerVibration, RControllerVibration);
 
-            if (LControllerVibration > 0) LControllerVibration -= 1f * Time.deltaTime;
-            if (RControllerVibration > 0) RControllerVibration -= 1f * Time.deltaTime;
+            if (LControllerVibration > 0) LControllerVibration -= 0.5f * Time.deltaTime;
+            if (RControllerVibration > 0) RControllerVibration -= 0.5f * Time.deltaTime;
 
             if (LControllerVibration < 0) LControllerVibration = 0;
             if (RControllerVibration < 0) RControllerVibration = 0;
