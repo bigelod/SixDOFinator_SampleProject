@@ -123,9 +123,9 @@ public class ReadPosData : MonoBehaviour
     private SendUDPData UDPSender;
 
     [SerializeField]
-    private float LControllerVibration = 0f;
+    public float LControllerVibration = 0f;
     [SerializeField]
-    private float RControllerVibration = 0f;
+    public float RControllerVibration = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -370,12 +370,6 @@ public class ReadPosData : MonoBehaviour
             {
                 openXRFrameMatFlat.color = new Color32((byte)currFrameID, 0, 0, 1);
             }
-
-            if (UDPSender != null && LControllerVibration > 0f && RControllerVibration > 0f)
-            {
-                //We don't send data here actually unless the inspector has triggered both at once, as otherwise the individual demos handle haptics (if any)
-                UDPSender.SendHapticVibration(LControllerVibration, RControllerVibration);
-            }
         }
 
         if (debugLogButtonInputs)
@@ -406,6 +400,17 @@ public class ReadPosData : MonoBehaviour
             {
                 Debug.Log("Buttons Down: " + btnsDown);
             }
+        }
+
+        if (UDPSender != null)
+        {
+            UDPSender.SendHapticVibration(LControllerVibration, RControllerVibration);
+
+            if (LControllerVibration > 0) LControllerVibration -= 1f * Time.deltaTime;
+            if (RControllerVibration > 0) RControllerVibration -= 1f * Time.deltaTime;
+
+            if (LControllerVibration < 0) LControllerVibration = 0;
+            if (RControllerVibration < 0) RControllerVibration = 0;
         }
     }
 

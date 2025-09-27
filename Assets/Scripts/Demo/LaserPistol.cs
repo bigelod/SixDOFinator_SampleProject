@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -34,11 +35,7 @@ public class LaserPistol : MonoBehaviour
 
     private int laserBlockerMask;
 
-    private SendUDPData dataSender;
-    private float LHapticData = 0f;
-    private float RHapticData = 0f;
-    private int waitFrames = 72;
-    bool waitFrame = false;
+    private ReadPosData playerData;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +46,7 @@ public class LaserPistol : MonoBehaviour
 
         if (player != null)
         {
-            dataSender = player.GetComponent<SendUDPData>();
+            playerData = player.GetComponent<ReadPosData>();
         }
     }
 
@@ -77,40 +74,24 @@ public class LaserPistol : MonoBehaviour
         {
             cooldown -= 1f * Time.deltaTime;
         }
-
-        if (dataSender != null)
-        {
-            dataSender.SendHapticVibration(LHapticData, RHapticData);
-        }
-
-        if (waitFrame)
-        {
-            waitFrames -= 1;
-
-            if (waitFrames <= 0)
-            {
-                LHapticData = 0f;
-                RHapticData = 0f;
-                waitFrame = false;
-            }
-        }
     }
 
     void Shoot()
     {
         if (m_ShootSound != null) m_ShootSound.Play();
 
-        if (m_LeftHand)
+        if (playerData)
         {
-            LHapticData = 1f;
+            if (m_LeftHand)
+            {
+                playerData.LControllerVibration = 1f;
+            }
+            else
+            {
+                playerData.RControllerVibration = 1f;
+            }
         }
-        else
-        {
-            RHapticData = 1f;
-        }
-
-        waitFrames = 72;
-        waitFrame = true;
+        
 
         RaycastHit hit;
 
