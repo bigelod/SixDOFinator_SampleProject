@@ -1180,6 +1180,7 @@ GameObject:
   - component: {fileID: 2556998891053683222}
   - component: {fileID: 1999807679167474258}
   - component: {fileID: 309311427818260180}
+  - component: {fileID: 6276051151634325980}
   m_Layer: 0
   m_Name: WinXR_PlayerSpace
   m_TagString: Player
@@ -1233,6 +1234,9 @@ MonoBehaviour:
   m_RightEyeCam: {fileID: 1363451246067172570}
   m_OpenXRFrameIDFlat: {fileID: 0}
   skipFrameWaitDebug: 0
+  debugLogButtonInputs: 0
+  HMDAdjusts: []
+  currentHMD: META
 --- !u!114 &2556998891053683222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,6 +1283,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posData: {fileID: 803349308047852404}
   udpPort: 7872
+--- !u!114 &6276051151634325980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4558858488803406233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5114de452c352a4c9d2bfa86bf1d6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  udpPort: 7278
+  targetIP: 127.0.0.1
 --- !u!1 &4560253434037700148
 GameObject:
   m_ObjectHideFlags: 0

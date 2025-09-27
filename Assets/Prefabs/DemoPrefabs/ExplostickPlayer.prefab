@@ -1254,7 +1254,6 @@ GameObject:
   - component: {fileID: 5298576252293917054}
   - component: {fileID: 916090796949136478}
   - component: {fileID: 7904666131658723430}
-  - component: {fileID: 8450830146057331036}
   m_Layer: 0
   m_Name: ExplostickPlayer
   m_TagString: Player
@@ -1309,6 +1308,12 @@ MonoBehaviour:
   m_RightEyeCam: {fileID: 377565950256583766}
   m_OpenXRFrameIDFlat: {fileID: 0}
   skipFrameWaitDebug: 0
+  debugLogButtonInputs: 0
+  HMDAdjusts: []
+  currentHMD: META
+  UDPSender: {fileID: 0}
+  LControllerVibration: 0
+  RControllerVibration: 0
 --- !u!114 &5298576252293917054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1353,23 +1358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5279f606b17f2a4eb0c3bf690590f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  udpReceiver: {fileID: 8450830146057331036}
   posData: {fileID: 3187618246008460027}
   udpPort: 7872
---- !u!114 &8450830146057331036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4459709649648354798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60c4973741aa694db9875d19ca8eb61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StringOnly: 1
-  Port: 7872
 --- !u!1 &4739142472202145099
 GameObject:
   m_ObjectHideFlags: 0

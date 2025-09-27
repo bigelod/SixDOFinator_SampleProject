@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 1001594960937586610}
   - component: {fileID: 2471144045985452465}
   - component: {fileID: 8582240066091729040}
-  - component: {fileID: 7788322990619344660}
+  - component: {fileID: 8081258102339689581}
   m_Layer: 0
   m_Name: ShooterPlayer
   m_TagString: Player
@@ -334,6 +334,12 @@ MonoBehaviour:
   m_RightEyeCam: {fileID: 4487778414632920176}
   m_OpenXRFrameIDFlat: {fileID: 0}
   skipFrameWaitDebug: 0
+  debugLogButtonInputs: 0
+  HMDAdjusts: []
+  currentHMD: META
+  UDPSender: {fileID: 0}
+  LControllerVibration: 0
+  RControllerVibration: 0
 --- !u!114 &1001594960937586610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,10 +384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5279f606b17f2a4eb0c3bf690590f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  udpReceiver: {fileID: 7788322990619344660}
   posData: {fileID: 668936179934540283}
   udpPort: 7872
---- !u!114 &7788322990619344660
+--- !u!114 &8081258102339689581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -390,11 +395,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1332952382304143842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d60c4973741aa694db9875d19ca8eb61, type: 3}
+  m_Script: {fileID: 11500000, guid: a5114de452c352a4c9d2bfa86bf1d6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StringOnly: 1
-  Port: 7872
+  udpPort: 7278
+  targetIP: 127.0.0.1
 --- !u!1 &1486518573551109613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3351,7 +3356,7 @@ MonoBehaviour:
   m_ShootSound: {fileID: 314340990514491623}
   m_CashFx: {fileID: 7438414823071248255, guid: 351e344c3a3a1b646ae535ad5d7abcca, type: 3}
   m_MissFx: {fileID: 1434183045040607065, guid: 6be34af4d9f51f84f9e43860135d0a49, type: 3}
-  m_ShotCooldown: 0.15
+  m_ShotCooldown: 0.33
   m_RayHitLayermask:
     serializedVersion: 2
     m_Bits: 1536
@@ -3541,7 +3546,7 @@ MonoBehaviour:
   m_ShootSound: {fileID: 4978685093482607021}
   m_CashFx: {fileID: 7438414823071248255, guid: 351e344c3a3a1b646ae535ad5d7abcca, type: 3}
   m_MissFx: {fileID: 1434183045040607065, guid: 6be34af4d9f51f84f9e43860135d0a49, type: 3}
-  m_ShotCooldown: 0.15
+  m_ShotCooldown: 0.33
   m_RayHitLayermask:
     serializedVersion: 2
     m_Bits: 1536
