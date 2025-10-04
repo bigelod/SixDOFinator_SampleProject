@@ -21,7 +21,7 @@ Thanks to GmoLargey for testing!
 This project is designed to run within a Windows (Wine) container on WinlatorXR, go check that out [here](https://github.com/lvonasek/WinlatorXR)
 
 # Unity Editor Version: 
-2022.3.62f1 (LTS)
+2022.3.62f2 (LTS)
 
 # How to build (and run):
 
