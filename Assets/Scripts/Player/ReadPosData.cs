@@ -116,6 +116,7 @@ public class ReadPosData : MonoBehaviour
     [SerializeField]
     private List<HMDSpecificAdjustment> HMDAdjusts = new List<HMDSpecificAdjustment>();
     public string currentHMD = "META";
+    public string currentHMDModel = "EUREKA";
 
     private bool leavingLevel = false;
 
@@ -133,10 +134,29 @@ public class ReadPosData : MonoBehaviour
         if (HMDAdjusts.Count <= 0)
         {
             //Default HMD adjustments
-            //HMDAdjusts.Add(new HMDSpecificAdjustment("META")); //We don't actually need one for META as it is the default
             HMDSpecificAdjustment picoHMD = new HMDSpecificAdjustment("PICO");
             picoHMD.FlipHandZRot = true;
             HMDAdjusts.Add(picoHMD);
+
+            //EUREKA - Quest 3 - Works, assumed default
+            //PANTHER - Quest 3 S - Works, assumed same as Quest 3
+            //SEACLIFF - Quest Pro - Untested, assuming hands upside down
+            //HOLLYWOOD - Quest 2 - Works! Hands upside down, performance is OK (better with Turnip driver)
+            //MONTEREY - Quest 1 - Untested, unsupported
+            HMDSpecificAdjustment questProHMD = new HMDSpecificAdjustment("META", "SEACLIFF");
+            questProHMD.FlipHandZRot = true;
+            HMDAdjusts.Add(questProHMD);
+
+            HMDSpecificAdjustment quest2HMD = new HMDSpecificAdjustment("META", "HOLLYWOOD");
+            quest2HMD.FlipHandZRot = true;
+            HMDAdjusts.Add(quest2HMD);
+
+            //Quest 3 and 3 S don't need any adjustments
+            HMDSpecificAdjustment quest3HMD = new HMDSpecificAdjustment("META", "EUREKA");
+            HMDAdjusts.Add(quest3HMD);
+
+            HMDSpecificAdjustment quest3SHMD = new HMDSpecificAdjustment("META", "PANTHER");
+            HMDAdjusts.Add(quest3SHMD);
         }
 
         Cursor.visible = false;
@@ -188,6 +208,28 @@ public class ReadPosData : MonoBehaviour
         {
             FileStream fs = File.Create(vrFile);
             fs.Close();
+        }
+
+        string systemFile = m_DataDirectory + "/system";
+
+        if (File.Exists(systemFile))
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(systemFile))
+                {
+                    currentHMD = sr.ReadLine();
+                    currentHMDModel = sr.ReadLine();
+                }
+            }
+            catch
+            {
+                currentHMD = "META";
+                currentHMDModel = "EUREKA";
+            }
+
+            if (currentHMD.ToUpper() == "OCULUS") currentHMD = "META"; //Hard fix for new brand
+            
         }
 
         if (m_OpenXRFrameIDFlat == null)
@@ -272,58 +314,61 @@ public class ReadPosData : MonoBehaviour
                 m_PlayerHandR.localEulerAngles = new Vector3(360f - handRRot.eulerAngles.x, 360f - handRRot.eulerAngles.y, handRRot.eulerAngles.z + 180f);
             }
 
-            if (currentHMD.ToUpper() != "META" && HMDAdjusts.Count > 0)
+            if (HMDAdjusts.Count > 0)
             {
                 foreach (HMDSpecificAdjustment hmd in HMDAdjusts)
                 {
                     if (hmd.HMDName.ToUpper() == currentHMD.ToUpper())
                     {
-                        if (hmd.FlipHandXRot)
+                        if (hmd.HMDModel.ToUpper() == "ANY" || hmd.HMDModel.ToUpper() == currentHMDModel)
                         {
-                            if (m_PlayerHandL != null)
+                            if (hmd.FlipHandXRot)
                             {
-                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
-                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                                if (m_PlayerHandL != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                    m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                                }
+
+                                if (m_PlayerHandR != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                    m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                                }
                             }
 
-                            if (m_PlayerHandR != null)
+                            if (hmd.FlipHandYRot)
                             {
-                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
-                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x + 180f, oldAng.y, oldAng.z);
+                                if (m_PlayerHandL != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                    m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
+                                }
+
+                                if (m_PlayerHandR != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                    m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
+                                }
                             }
+
+                            if (hmd.FlipHandZRot)
+                            {
+                                if (m_PlayerHandL != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandL.localEulerAngles;
+                                    m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
+                                }
+
+                                if (m_PlayerHandR != null)
+                                {
+                                    Vector3 oldAng = m_PlayerHandR.localEulerAngles;
+                                    m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
+                                }
+                            }
+
+                            break;
                         }
-
-                        if (hmd.FlipHandYRot)
-                        {
-                            if (m_PlayerHandL != null)
-                            {
-                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
-                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
-                            }
-
-                            if (m_PlayerHandR != null)
-                            {
-                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
-                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y + 180f, oldAng.z);
-                            }
-                        }
-
-                        if (hmd.FlipHandZRot)
-                        {
-                            if (m_PlayerHandL != null)
-                            {
-                                Vector3 oldAng = m_PlayerHandL.localEulerAngles;
-                                m_PlayerHandL.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
-                            }
-
-                            if (m_PlayerHandR != null)
-                            {
-                                Vector3 oldAng = m_PlayerHandR.localEulerAngles;
-                                m_PlayerHandR.localEulerAngles = new Vector3(oldAng.x, oldAng.y, oldAng.z + 180f);
-                            }
-                        }
-
-                        break;
                     }
                 }
             }
@@ -557,8 +602,8 @@ public class ReadPosData : MonoBehaviour
                         if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
                         i++;
                         if (maxParts >= i) btnbools = parts[i];
-                        i++;
-                        if (maxParts >= i) currentHMD = parts[i];
+                        //i++;
+                        //if (maxParts >= i) currentHMD = parts[i]; //No longer part of data stream
                     }
 
                     if (btnbools != "")
@@ -676,8 +721,8 @@ public class ReadPosData : MonoBehaviour
             if (maxParts >= i) UpdateValueInt(ref currFrameID, TryParseStrToInt(parts[i]));
             i++;
             if (maxParts >= i) btnbools = parts[i];
-            i++;
-            if (maxParts >= i) currentHMD = parts[i];
+            //i++;
+            //if (maxParts >= i) currentHMD = parts[i]; //No longer part of data stream
 
             if (btnbools != "")
             {
@@ -719,6 +764,7 @@ public class ReadPosData : MonoBehaviour
 public class HMDSpecificAdjustment
 {
     public string HMDName = "";
+    public string HMDModel = "ANY";
     public bool FlipHandXRot = false;
     public bool FlipHandYRot = false;
     public bool FlipHandZRot = false;
@@ -726,5 +772,12 @@ public class HMDSpecificAdjustment
     public HMDSpecificAdjustment(string name = "HMD")
     {
         HMDName = name;
+        HMDModel = "ANY";
+    }
+
+    public HMDSpecificAdjustment(string name = "HMD", string model = "ANY")
+    {
+        HMDName = name;
+        HMDModel = model;
     }
 }
