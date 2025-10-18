@@ -202,6 +202,23 @@ public class ReadPosData : MonoBehaviour
             return;
         }
 
+        string versionFile = m_DataDirectory + "/version";
+
+        if (!File.Exists(versionFile))
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(versionFile))
+                {
+                    sw.WriteLine("0.1");
+                }
+            }
+            catch
+            {
+                Debug.Log("[SixDOFinator] ERROR - Unable to create version file!");
+            }
+        }
+
         string vrFile = m_DataDirectory + "/vr";
 
         if (!File.Exists(vrFile))
