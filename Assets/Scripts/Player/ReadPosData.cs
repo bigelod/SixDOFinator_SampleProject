@@ -210,7 +210,7 @@ public class ReadPosData : MonoBehaviour
             {
                 using (StreamWriter sw = new StreamWriter(versionFile))
                 {
-                    sw.WriteLine("0.1");
+                    sw.WriteLine("0.2");
                 }
             }
             catch
@@ -466,7 +466,11 @@ public class ReadPosData : MonoBehaviour
 
         if (UDPSender != null)
         {
-            UDPSender.SendHapticVibration(LControllerVibration, RControllerVibration);
+            string sbsFlag = "0";
+
+            if (IsSBS()) sbsFlag = "1";
+
+            UDPSender.SendHapticVibration(LControllerVibration, RControllerVibration, sbsFlag);
 
             if (LControllerVibration > 0) LControllerVibration -= 0.5f * Time.deltaTime;
             if (RControllerVibration > 0) RControllerVibration -= 0.5f * Time.deltaTime;
@@ -774,6 +778,16 @@ public class ReadPosData : MonoBehaviour
     public bool LeavingLevel()
     {
         return leavingLevel;
+    }
+
+    public bool IsSBS()
+    {
+        if (m_CameraModeToggle != null)
+        {
+            return m_CameraModeToggle.StereoRenderMode();
+        }
+
+        return lastStereoStatus;
     }
 }
 

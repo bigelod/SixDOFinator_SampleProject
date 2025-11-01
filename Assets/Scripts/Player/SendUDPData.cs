@@ -23,11 +23,23 @@ public class SendUDPData : MonoBehaviour
         transmitClient = new UdpClient();
     }
 
-    public void SendHapticVibration(float lControllerVibration, float rControllerVibration)
+    public void SendHapticVibration(float lControllerVibration, float rControllerVibration, string sbsFlag = "0")
     {
-        string vibeData = lControllerVibration.ToString("0.00") + " " + rControllerVibration.ToString("0.00");
+        //V0.2 now takes L Vibration, R Vibration, VR flag, SBS flag, target FOV W, target FOV H
+        float lCV = Mathf.Max(0f, lControllerVibration);
+        float rCV = Mathf.Max(0f, rControllerVibration);
 
-        SendData(vibeData);
+        if (lCV + rCV == 0)
+        {
+            //Technically we don't need to send any data and WinlatorXR will automatically tween vibration strength back to 0 itself for each controller, to make it fade out smoothly
+            SendData("0 0 1 " + sbsFlag + " 104.5 104.5");
+        }
+        else
+        {
+            string vibeData = lCV.ToString("0.000") + " " + rCV.ToString("0.000");
+
+            SendData(vibeData + " 1 " + sbsFlag + " 104.5 104.5");
+        }
     }
 
     public void SendData(string data)
