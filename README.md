@@ -67,7 +67,7 @@ Newer versions of WinlatorXR also provide the HMD sending the data, eg: PICO or 
 
 # WinlatorXR XrApi
 
-The documentation of the XrApi can be found [here](https://github.com/lvonasek/WinlatorXR/releases/tag/winlatorxr_cmod_v13_11)
+The documentation of the XrApi can be found [here](https://github.com/Team-Beef-Studios/WinlatorXR?tab=readme-ov-file#winlatorxr-api)
 
 # Asset credits:
 
